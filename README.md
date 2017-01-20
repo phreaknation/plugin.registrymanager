@@ -17,7 +17,8 @@ In your create of your phaser project.
 game.plugins.add(Phaser.Plugin.Registry);
 ```
 
-**Example:**
+
+#### Example:
 ```
 var registry;
 (function() {
@@ -74,21 +75,24 @@ var registry;
 
 ### version()
 Return the plugin version.
-**Example:**
+
+#### Example:
 ```
 registry.version();
 ```
 
 ### description()
 Return a description of this plugin.
-**Example:**
+
+#### Example:
 ```
 registry.description();
 ```
 
 ### setRegistry(type)
 Sets the registery type to available options.
-**Example:**
+
+#### Example:
 ```
 // {number} [type=registry.REGISTRY_TYPES.LOCALSTORAGE]    Registry Type
 registry.setRegistry(registry.REGISTRY_TYPES.LOCALSTORAGE);
@@ -96,7 +100,8 @@ registry.setRegistry(registry.REGISTRY_TYPES.LOCALSTORAGE);
 
 ### setRegistryName(name)
 Sets the name of the registry for Cache and LocalStorage.
-**Example:**
+
+#### Example:
 ```
 // {string} [name="GameRegistry"]    Name of the registry
 registry.setRegistryName("My Game Title");
@@ -104,7 +109,8 @@ registry.setRegistryName("My Game Title");
 
 ### setCacheLengthInDays(days)
 Sets the number of days that the cache(cookies) will be stored for.
-**Example:**
+
+#### Example:
 ```
 // {number} [days=365]    Number of days to keep the cache registry.
 registry.setCacheLengthInDays(31);
@@ -112,7 +118,8 @@ registry.setCacheLengthInDays(31);
 
 ### allowDestroy(confirmed)
 If true is passed it will allow the destroyRegistry function to be usable.
-**Example:**
+
+#### Example:
 ```
 /// {boolean} [accepted=false]    Pass true to enable destroyRegistry.
 registry.allowDestroy(true);
@@ -138,7 +145,8 @@ Replaceable Keys:
   },
 }
 ```
-**Example:**
+
+#### Example:
 ```
 // {object} config    Config Object
 registry.configREST({
@@ -150,7 +158,8 @@ registry.configREST({
 
 ### set(path, value)
 Sets a variable based on a string path. If no value is passed then it will just return like get.
-**Example:**
+
+#### Example:
 ```
 // {string} path    String path of the key.
 // {string} [value]    Object you wish to set to the 'path'.
@@ -159,7 +168,8 @@ registry.set("string.path", true);
 
 ### get(path)
 Returns the value of a string path.
-**Example:**
+
+#### Example:
 ```
 // {string} path    String path of the key.
 registry.set("string.path");
@@ -167,14 +177,16 @@ registry.set("string.path");
 
 ### save()
 Saves the registry based on the registry type.
-**Example:**
+
+#### Example:
 ```
 registry.save();
 ```
 
 ### load(name)
 Loads the registry based on the registry type.
-**Example:**
+
+#### Example:
 ```
 // {string} [name]    Name of the registry
 registry.load('My Game Name');
@@ -182,7 +194,8 @@ registry.load('My Game Name');
 
 ### destroyRegistry([boolean] accepted)
 If allowDestroy has been set to true, and true is passed then this will destroy the registry without a recoverable option.
-**Example:**
+
+#### Example:
 ```
 // {boolean} [accepted=false]    Pass true if you accept to destroy the registry
 registry.allowDestroy(true);
