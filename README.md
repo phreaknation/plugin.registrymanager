@@ -57,38 +57,38 @@ var registry;
 ## Constants
 
 ### REGISTRY_TYPES
-| Constant | value | Description |
-| --- | --- | --- |
-| NONE | 0 | Does not allow for any saving/loading. |
-| CACHE | 1 | Set the registry for cookies. |
-| LOCALSTORAGE | 2 | Set the registry for localstorage. |
-| RESTFUL_API | 3 | Set the registry to use a RESTful API. |
+```
+0 NONE          Does not allow for any saving/loading.
+1 CACHE         Set the registry for cookies.
+2 LOCALSTORAGE  Set the registry for localstorage.
+3 RESTFUL_API   Set the registry to use a RESTful API.
+```
 
 ### RESTAPI_METHODS
-| Constant | value | Description |
-| --- | --- | --- |
-| GET | 0 | Value to use GET methods in API calls. |
-| POST | 1 | Value to use POST methods in API calls. |
+```
+0 GET   Value to use GET methods in API calls.
+1 POST  Value to use POST methods in API calls.
+```
 
 ## Calls
 
 ### version()
 Return the plugin version.
-#### **Example:**
+**Example:**
 ```
 registry.version();
 ```
 
 ### description()
 Return a description of this plugin.
-#### **Example:**
+**Example:**
 ```
 registry.description();
 ```
 
 ### setRegistry(type)
 Sets the registery type to available options.
-#### **Example:**
+**Example:**
 ```
 // {number} [type=registry.REGISTRY_TYPES.LOCALSTORAGE]    Registry Type
 registry.setRegistry(registry.REGISTRY_TYPES.LOCALSTORAGE);
@@ -96,7 +96,7 @@ registry.setRegistry(registry.REGISTRY_TYPES.LOCALSTORAGE);
 
 ### setRegistryName(name)
 Sets the name of the registry for Cache and LocalStorage.
-#### **Example:**
+**Example:**
 ```
 // {string} [name="GameRegistry"]    Name of the registry
 registry.setRegistryName("My Game Title");
@@ -104,7 +104,7 @@ registry.setRegistryName("My Game Title");
 
 ### setCacheLengthInDays(days)
 Sets the number of days that the cache(cookies) will be stored for.
-#### **Example:**
+**Example:**
 ```
 // {number} [days=365]    Number of days to keep the cache registry.
 registry.setCacheLengthInDays(31);
@@ -112,7 +112,7 @@ registry.setCacheLengthInDays(31);
 
 ### allowDestroy(confirmed)
 If true is passed it will allow the destroyRegistry function to be usable.
-#### **Example:**
+**Example:**
 ```
 /// {boolean} [accepted=false]    Pass true to enable destroyRegistry.
 registry.allowDestroy(true);
@@ -138,7 +138,7 @@ Replaceable Keys:
   },
 }
 ```
-#### **Example:**
+**Example:**
 ```
 // {object} config    Config Object
 registry.configREST({
@@ -150,7 +150,7 @@ registry.configREST({
 
 ### set(path, value)
 Sets a variable based on a string path. If no value is passed then it will just return like get.
-#### **Example:**
+**Example:**
 ```
 // {string} path    String path of the key.
 // {string} [value]    Object you wish to set to the 'path'.
@@ -159,7 +159,7 @@ registry.set("string.path", true);
 
 ### get(path)
 Returns the value of a string path.
-#### **Example:**
+**Example:**
 ```
 // {string} path    String path of the key.
 registry.set("string.path");
@@ -167,14 +167,14 @@ registry.set("string.path");
 
 ### save()
 Saves the registry based on the registry type.
-#### **Example:**
+**Example:**
 ```
 registry.save();
 ```
 
 ### load(name)
 Loads the registry based on the registry type.
-#### **Example:**
+**Example:**
 ```
 // {string} [name]    Name of the registry
 registry.load('My Game Name');
@@ -182,7 +182,7 @@ registry.load('My Game Name');
 
 ### destroyRegistry([boolean] accepted)
 If allowDestroy has been set to true, and true is passed then this will destroy the registry without a recoverable option.
-#### **Example:**
+**Example:**
 ```
 // {boolean} [accepted=false]    Pass true if you accept to destroy the registry
 registry.allowDestroy(true);
