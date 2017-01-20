@@ -119,22 +119,41 @@ registry.allowDestroy(true);
 ```
 
 ### configREST(config)
-...
+Sets the RESTful API configuration based on the config option. Use '{}' around keys to replace with their values.
+Replaceable Keys:
+**registryname**: Name of the registry
+#### **Object Format: config**
+```
+{
+  method: Number,
+  urls: {
+    save: String,
+    load: String,
+    remove: String,
+  },
+  callback: {
+    save: Function,
+    load: Function,
+    remove: Function,
+  },
+}
+```
 #### **Example:**
 ```
-...
+// {object} config    Config Object
+registry.configREST({
+  urls: {
+    save: '/new/save/url/{registryname}',
+  },
+});
 ```
 
 ### set(path, value)
-| Type | Default | Argument | Description |
-| --- | --- | --- | --- |
-| string | | **path** | String path |
-| string | | **value** | some kind of object type |
 Sets a variable based on a string path. If no value is passed then it will just return like get.
 #### **Example:**
 ```
 // {string} path    String path of the key.
-// {string} [value]    Object you wish to set to the 'path'
+// {string} [value]    Object you wish to set to the 'path'.
 registry.set("string.path", true);
 ```
 
