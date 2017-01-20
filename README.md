@@ -10,6 +10,7 @@ If you wish to use this plugin in a commercial product, or get the full source.
 Include the script into your html page.
 
 ```
+<script src="/path/to/plugin/helpers.min.js"></script>
 <script src="/path/to/plugin/registry.min.js"></script>
 ```
 
