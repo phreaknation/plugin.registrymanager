@@ -1,8 +1,10 @@
 # Phaser Registry Plugin
 By Joel Dies
 
-This is a third party plugin for Phaser.io to handle Cookies, LocalStorage, and API Calls.
+This is a third party plugin for Phaser.io to handle Cookies, LocalStorage, and API Calls. This is not 100% documented but is on its way to being 100% documented.
 
+If you wish to use this plugin in a commercial product, or get the full source.
+[Registry](https://gum.co/fHTN)
 
 ## Including in a project
 Include the script into your html page.
