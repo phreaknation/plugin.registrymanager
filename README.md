@@ -1,12 +1,62 @@
-## Phaser Registry Plugin
+# Phaser Registry Plugin
 By Joel Dies
 
-This is a THIRD party plugin for Phaser.io to handle Cookies, LocalStorage, and API Calls.
+This is a third party plugin for Phaser.io to handle Cookies, LocalStorage, and API Calls.
 
 
-### Constants
+## Including in a project
+Include the script into your html page.
 
-#### REGISTRY_TYPES
+```
+<script src="/path/to/plugin/registry.min.js"></script>
+```
+
+In your create of your phaser project.
+
+```
+game.plugins.add(Phaser.Plugin.Registry);
+```
+
+**Example:**
+```
+var registry;
+(function() {
+  'use strict';
+
+  var state = function state(game) {};
+
+  state.prototype = {
+    ...
+    create: function () {
+      ...
+      registry = this.game.plugins.add(Phaser.Plugin.Registry);
+      registry.load('My Game');
+
+      // Using the lodash Libarary
+      if (_.isEmpty(registry.get())) {
+          registry.set('test', {
+              this: {
+                  is: {
+                      a: 'test',
+                  },
+              },
+          });
+          registry.save();
+      }
+
+      console.log(registry.get('test.this'));
+      ...
+    },
+    ...
+  };
+
+  window.MyGame.states.MyState = state;
+})();
+```
+
+## Constants
+
+### REGISTRY_TYPES
 | Constant | value | Description |
 | --- | --- | --- |
 | NONE | 0 | Does not allow for any saving/loading. |
@@ -14,93 +64,108 @@ This is a THIRD party plugin for Phaser.io to handle Cookies, LocalStorage, and 
 | LOCALSTORAGE | 2 | Set the registry for localstorage. |
 | RESTFUL_API | 3 | Set the registry to use a RESTful API. |
 
-#### RESTAPI_METHODS
+### RESTAPI_METHODS
 | Constant | value | Description |
 | --- | --- | --- |
 | GET | 0 | Value to use GET methods in API calls. |
 | POST | 1 | Value to use POST methods in API calls. |
 
-### Calls
+## Calls
 
-#### version()
+### version()
 Return the plugin version.
-##### **Example:**
+#### **Example:**
+```
 registry.version();
+```
 
-#### description()
+### description()
 Return a description of this plugin.
-##### **Example:**
+#### **Example:**
+```
 registry.description();
+```
 
-#### setRegistry(type)
-| Type | Default | Argument | Description |
-| --- | --- | --- | --- |
-| number | registry.REGISTRY_TYPES.LOCALSTORAGE | **type** | Registry Type |
+### setRegistry(type)
 Sets the registery type to available options.
-##### **Example:**
+#### **Example:**
+```
+// {number} [type=registry.REGISTRY_TYPES.LOCALSTORAGE]    Registry Type
 registry.setRegistry(registry.REGISTRY_TYPES.LOCALSTORAGE);
+```
 
-#### setRegistryName(name)
-| Type | Default | Argument | Description |
-| --- | --- | --- | --- |
-| string | "GameRegistry" | **name** | Name of the registry |
+### setRegistryName(name)
 Sets the name of the registry for Cache and LocalStorage.
-##### **Example:**
+#### **Example:**
+```
+// {string} [name="GameRegistry"]    Name of the registry
 registry.setRegistryName("My Game Title");
+```
 
-#### setCacheLengthInDays(days)
-| Type | Default | Argument | Description |
-| --- | --- | --- | --- |
-| number | 365 | **days** | Number of days to keep the cache registry |
+### setCacheLengthInDays(days)
 Sets the number of days that the cache(cookies) will be stored for.
-##### **Example:**
+#### **Example:**
+```
+// {number} [days=365]    Number of days to keep the cache registry.
 registry.setCacheLengthInDays(31);
+```
 
-#### allowDestroy(confirmed)
-| Type | Default | Argument | Description |
-| --- | --- | --- | --- |
-| boolean | false | **accepted** | Pass true to enable destroyRegistry |
+### allowDestroy(confirmed)
 If true is passed it will allow the destroyRegistry function to be usable.
-##### **Example:**
+#### **Example:**
+```
+/// {boolean} [accepted=false]    Pass true to enable destroyRegistry.
 registry.allowDestroy(true);
+```
 
-#### configREST(config)
+### configREST(config)
 ...
-##### **Example:**
+#### **Example:**
+```
 ...
+```
 
-#### set(path, value)
+### set(path, value)
 | Type | Default | Argument | Description |
 | --- | --- | --- | --- |
 | string | | **path** | String path |
 | string | | **value** | some kind of object type |
-Sets a variable based on a string path.
-##### **Example:**
+Sets a variable based on a string path. If no value is passed then it will just return like get.
+#### **Example:**
+```
+// {string} path    String path of the key.
+// {string} [value]    Object you wish to set to the 'path'
 registry.set("string.path", true);
+```
 
-#### get(path)
-| Type | Default | Argument | Description |
-| --- | --- | --- | --- |
-| string | | **path** | String path |
+### get(path)
 Returns the value of a string path.
-##### **Example:**
+#### **Example:**
+```
+// {string} path    String path of the key.
 registry.set("string.path");
+```
 
-#### save()
+### save()
 Saves the registry based on the registry type.
-##### **Example:**
+#### **Example:**
+```
 registry.save();
+```
 
-#### load()
+### load(name)
 Loads the registry based on the registry type.
-##### **Example:**
-registry.load();
+#### **Example:**
+```
+// {string} [name]    Name of the registry
+registry.load('My Game Name');
+```
 
-#### destroyRegistry([boolean] accepted)
-| Type | Default | Argument | Description |
-| --- | --- | --- | --- |
-| boolean | false | **accepted** | Pass true if you accept to destroy the registry |
+### destroyRegistry([boolean] accepted)
 If allowDestroy has been set to true, and true is passed then this will destroy the registry without a recoverable option.
-##### **Example:**
+#### **Example:**
+```
+// {boolean} [accepted=false]    Pass true if you accept to destroy the registry
 registry.allowDestroy(true);
 registry.destroyRegistry(true);
+```
