@@ -37,7 +37,8 @@ var registry;
       registry.load('My Game');
 
       // Using the lodash Libarary
-      if (_.isEmpty(registry.get())) {
+      if (_.isEmpty(registry.
+      ())) {
           registry.set('test', {
               this: {
                   is: {
@@ -175,7 +176,7 @@ Returns the value of a string path.
 #### Example:
 ```
 // {string} path    String path of the key.
-registry.set("string.path");
+registry.get("string.path");
 ```
 
 ### save()
