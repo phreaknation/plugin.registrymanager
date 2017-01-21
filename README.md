@@ -1,7 +1,9 @@
 # Phaser Registry Plugin
 By Joel Dies
 
-A simple tool to help save game information in a cleaner format instead of the game object that can be accessed anywhere in the game. Also helps with saving the data to the localstorage, cookies, or to a RESTful API. This is not 100% documented but is on its way to being 100% documented.
+A simple tool to help save game information in a cleaner format, instead of the game object, that can be accessed anywhere in the game. Also supports saving the data to the localstorage, cookies, or to a RESTful API.
+
+**This is not 100% documented but is on its way to being 100% documented.**
 
 If you wish to use this plugin in a commercial product, or get the full source.
 [Registry](https://gum.co/fHTN)
