@@ -35,23 +35,36 @@ var registry;
     ...
     create: function () {
       ...
-      registry = this.game.plugins.add(Phaser.Plugin.Registry);
+      registry = this.game.plugins.add(PhreakNation.Plugins.RegistryManager);
       registry.load('My Game');
 
-      // Using the lodash Libarary
-      if (_.isEmpty(registry.
-      ())) {
-          registry.set('test', {
-              this: {
-                  is: {
-                      a: 'test',
-                  },
-              },
-          });
-          registry.save();
-      }
+      var regTypes = registry.getRegistryTypes();
+      if (regTypes.indexOf('LOCALSTORAGE') !== -1) {
+          registry.setRegistry(regTypes.LOCALSTORAGE);
+          registry.load('My Game');
 
-      console.log(registry.get('test.this'));
+          if (_.isEmpty(registry.get())) {
+              registry.set('test', {
+                  this: {
+                      is: {
+                          a: 'test',
+                      },
+                  },
+              });
+
+              registry.save();
+          }
+          registry.set('a', {});
+          registry.set('a.b', {});
+          registry.set('a.b.c', 'd');
+
+          registry.save();
+
+          console.log(registry.get('a'));
+          registry.remove('a.b.c');
+
+          console.log(registry.get());
+      }
       ...
     },
     ...
@@ -61,20 +74,11 @@ var registry;
 })();
 ```
 
-## Constants
-
-### REGISTRY_TYPES
+### Registry Adapters
 ```
-0 NONE          Does not allow for any saving/loading.
-1 CACHE         Set the registry for cookies.
-2 LOCALSTORAGE  Set the registry for localstorage.
-3 RESTFUL_API   Set the registry to use a RESTful API.
-```
-
-### RESTAPI_METHODS
-```
-0 GET   Value to use GET methods in API calls.
-1 POST  Value to use POST methods in API calls.
+Cookies       Utilizing cookies for caching of data this is a tride and true method of storing limited data.
+LocalStorage  LocalStorage is an HTML5 compliant storage protocal to allow in browser storage with higher capacity than Cookies.
+RESTful API   This adapter allows for storage through a service api.
 ```
 
 ## Calls
@@ -95,31 +99,26 @@ Return a description of this plugin.
 registry.description();
 ```
 
-### setRegistry(type)
-Sets the registery type to available options.
+### addRegistryType(regType)
+Allows you to add your own registry adapter type that can be set.
 
 #### Example:
 ```
-// {number} [type=registry.REGISTRY_TYPES.LOCALSTORAGE]    Registry Type
-registry.setRegistry(registry.REGISTRY_TYPES.LOCALSTORAGE);
-```
-
-### setRegistryName(name)
-Sets the name of the registry for Cache and LocalStorage.
-
-#### Example:
-```
-// {string} [name="GameRegistry"]    Name of the registry
-registry.setRegistryName("My Game Title");
-```
-
-### setCacheLengthInDays(days)
-Sets the number of days that the cache(cookies) will be stored for.
-
-#### Example:
-```
-// {number} [days=365]    Number of days to keep the cache registry.
-registry.setCacheLengthInDays(31);
+/// {object} regType    Registry object to be passed as a valid registry type.
+registry.addRegistryType({
+  name: 'KEY_TO_BE_USED',
+  functions: {
+    load: function() {
+      // Your load function
+    },
+    remove: function() {
+      // Your remove function
+    },
+    save: function() {
+      // Your save function
+    },
+  },
+});
 ```
 
 ### allowDestroy(confirmed)
@@ -130,6 +129,145 @@ If true is passed it will allow the destroyRegistry function to be usable.
 /// {boolean} [accepted=false]    Pass true to enable destroyRegistry.
 registry.allowDestroy(true);
 ```
+
+### destroyRegistry([boolean] accepted)
+If allowDestroy has been set to true, and true is passed then this will destroy the registry without a recoverable option.
+
+#### Example:
+```
+// {boolean} [accepted=false]    Pass true if you accept to destroy the registry
+registry.allowDestroy(true);
+registry.destroyRegistry(true);
+```
+
+### get(path)
+Returns the value of a string path.
+
+#### Example:
+```
+// {string} path    String path of the key.
+registry.get("string.path");
+```
+
+### getRegistryTypes()
+Returns the type of the current Register adapter.
+
+#### Example:
+```
+var registryType = registry.getRegistryTypes();
+```
+
+### getResgister(type)
+Returns the current Register adapter.
+
+#### Example:
+```
+// {integer} type    Index of the register type.
+var registryType = registry.getRegistryTypes();
+var register = registry.getResgister(registryType);
+```
+
+### load(name)
+Loads the registry based on the registry type.
+
+#### Example:
+```
+// {string} [name]    Name of the registry
+registry.load('My Game Name');
+```
+
+### parseData(strData)
+Validates that the data can be set to the registry.
+
+#### Example:
+```
+// {string} strData    String JSON object.
+var data = registry.parseData('{"data": true}');
+```
+
+### remove(strData)
+Removes an object from the registry.
+
+#### Example:
+```
+// {string} path    Valid object path of an object in the registry.
+registry.remove('a.b.c');
+```
+
+### save()
+Saves the registry based on the registry type.
+
+#### Example:
+```
+registry.save();
+```
+
+### set(path, value)
+Sets a variable based on a string path. If no value is passed then it will just return like get.
+
+#### Example:
+```
+// {string} path    String path of the key.
+// {string} [value]    Object you wish to set to the 'path'.
+registry.set("string.path", true);
+```
+
+### setRegistry(type)
+Sets the registery type to available options.
+
+#### Example:
+```
+// {number} [type=registry.REGISTRY_TYPES.LOCALSTORAGE]    Registry Type
+registry.setRegistry(registry.REGISTRY_TYPES.LOCALSTORAGE);
+```
+
+### setRegistryName(name)
+Sets the name of the registry for adapters that support naming such as Cookies and LocalStorage.
+
+#### Example:
+```
+// {string} [name="GameRegistry"]    Name of the registry
+registry.setRegistryName("My Game Title");
+```
+
+## Adapter Specific
+
+### COOKIES
+
+### setCacheLengthInDays(days)
+Sets the number of days that the cache(cookies) will be stored for.
+
+#### Example:
+```
+// {number} [days=365]    Number of days to keep the cache registry.
+registry.setCacheLengthInDays(31);
+```
+
+### LOCALSTORAGE
+
+### isLocalStorageSupported()
+Returns if the browser supports localStorage or not.
+
+#### Example:
+```
+var hasLS = registry.isLocalStorageSupported();
+if (hasLS)
+  registry.setRegistry(regTypes.LOCALSTORAGE);
+else
+  registry.setRegistry(regTypes.COOKIES);
+```
+
+### RESTful API
+
+## Constants
+
+### RESTAPI_METHODS
+```
+0 GET   Value to use GET methods in API calls.
+1 POST  Value to use POST methods in API calls.
+```
+
+## Calls
 
 ### configREST(config)
 Sets the RESTful API configuration based on the config option. Use '{}' around keys to replace with their values.
@@ -160,50 +298,4 @@ registry.configREST({
     save: '/new/save/url/{registryname}',
   },
 });
-```
-
-### set(path, value)
-Sets a variable based on a string path. If no value is passed then it will just return like get.
-
-#### Example:
-```
-// {string} path    String path of the key.
-// {string} [value]    Object you wish to set to the 'path'.
-registry.set("string.path", true);
-```
-
-### get(path)
-Returns the value of a string path.
-
-#### Example:
-```
-// {string} path    String path of the key.
-registry.get("string.path");
-```
-
-### save()
-Saves the registry based on the registry type.
-
-#### Example:
-```
-registry.save();
-```
-
-### load(name)
-Loads the registry based on the registry type.
-
-#### Example:
-```
-// {string} [name]    Name of the registry
-registry.load('My Game Name');
-```
-
-### destroyRegistry([boolean] accepted)
-If allowDestroy has been set to true, and true is passed then this will destroy the registry without a recoverable option.
-
-#### Example:
-```
-// {boolean} [accepted=false]    Pass true if you accept to destroy the registry
-registry.allowDestroy(true);
-registry.destroyRegistry(true);
 ```
