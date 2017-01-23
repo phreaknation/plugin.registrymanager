@@ -11,15 +11,27 @@ If you wish to use this plugin in a commercial product, or get the full source.
 ## Including in a project
 Include the script into your html page.
 
+Required Modules:
+
+ + [Utilities](https://github.com/phreaknation/phreaknation.utilities)
+ + [AJV](https://github.com/epoberezkin/ajv) [CDNJS](https://cdnjs.cloudflare.com/ajax/libs/ajv/4.11.2/ajv.min.js)
+ + [Lodash](lodash.com) [CDNJS](https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js)
+ + [object-path](https://github.com/mariocasciaro/object-path)
+
+
 ```
-<script src="/path/to/plugin/helpers.min.js"></script>
-<script src="/path/to/plugin/registry.min.js"></script>
+<script src="/path/to/plugin/ajv.min.js"></script>
+<script src="/path/to/plugin/lodash.min.js"></script>
+<script src="/path/to/plugin/objectPath.min.js"></script>
+
+<script src="/path/to/plugin/phreaknation.utilities.min.js"></script>
+<script src="/path/to/plugin/phreaknation.manager.registry.min.js"></script>
 ```
 
 In your create of your phaser project.
 
 ```
-game.plugins.add(Phaser.Plugin.Registry);
+game.plugins.add(PhreakNation.Plugins.RegistryManager);
 ```
 
 
