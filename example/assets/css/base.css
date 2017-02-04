@@ -1,0 +1,50 @@
+@media (max-width: 639px) {
+    body > canvas {
+        height: 240px;
+        width: 320px;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 799px) {
+    body > canvas {
+        height: 480px;
+        width: 640px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1023px) {
+    body > canvas {
+        height: 600px;
+        width: 800px;
+    }
+}
+
+@media (min-width: 1024px) {
+    body > canvas {
+        height: 768px;
+        width: 1024px;
+    }
+}
+
+html {
+    /*font-size: 62.5%;*/
+    font-size: 150%;
+}
+
+body {
+    font-size: 1.4rem;
+    padding: 0;
+    background: black;
+    margin: 0;
+    overflow: hidden;
+    -webkit-user-select: none;
+}
+
+body > * {
+	display: none;
+}
+
+canvas {
+    margin: 0 auto;
+    display: none;
+}
