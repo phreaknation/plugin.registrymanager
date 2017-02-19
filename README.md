@@ -1,4 +1,4 @@
-# Phaser Registry Plugin
+# Registry Manager
 By Joel Dies
 
 [Demo](http://codepen.io/phreaknation/details/vgjPem/)
@@ -7,7 +7,7 @@ A simple tool to help save game information in a cleaner format, instead of the 
 
 **This is not 100% documented but is on its way to being 100% documented.**
 
-Help support these efforts by becoming a [Patreon](https://www.patreon.com/user?u=4928922)
+Help support these efforts by becoming a [Patreon](https://www.patreon.com/diesoft)
 
 If you wish to use this plugin in a commercial product, or get the full source [you may do so this way](https://gum.co/fHTN).
 
